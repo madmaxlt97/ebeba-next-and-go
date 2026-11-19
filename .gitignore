@@ -1,0 +1,17 @@
+# Go binaries and test output
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# Environment & local files
+.env
+.env.*
+!.env.example
+
+# OS & editor clutter
+.DS_Store
+Thumbs.db
