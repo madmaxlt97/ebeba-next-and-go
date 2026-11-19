@@ -4,6 +4,7 @@ import (
 	"eneba-backend/internal/data"
 	"eneba-backend/internal/domain"
 	"errors"
+	"strings"
 )
 
 type ProductCard struct {
@@ -93,4 +94,23 @@ func GetProductDetailsByID(productID string) (ProductDetails, error) {
 			Offers: offers,
 		}, nil
 	
+}
+
+func SearchProductCards(query string, platform string) []ProductCard {
+	normalizedQuery := strings.ToLower(strings.TrimSpace(query))
+	normalizedPlatform := strings.ToLower(strings.TrimSpace(query))
+
+	allCards := GetAllProductCards()
+	var filtered []ProductCard
+
+	for _, card := range allCards {
+		matchTitle := normalizedQuery == "" || strings.Contains(strings.ToLower(card.Product.Title), normalizedQuery)
+
+		matchPlatform := normalizedPlatform == "" || strings.ToLower(card.Product.Platform) == normalizedPlatform
+
+		if matchTitle && matchPlatform {
+			filtered = append(filtered, card)
+		}
+	}
+	return filtered
 }
